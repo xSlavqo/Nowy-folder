@@ -88,6 +88,21 @@ class PhoneConnector:
         except Exception as e:
             print(f"An error occurred while sending click: {e}")
 
+    def send_command(self, command):
+        """Wysyła ogólną komendę do serwera."""
+        if not self.socket:
+            print("Not connected.")
+            return False
+            
+        try:
+            command_str = f"{command}\n"
+            self.socket.sendall(command_str.encode('utf-8'))
+            print(f"Wysłano komendę: {command}")
+            return True
+        except Exception as e:
+            print(f"An error occurred while sending command: {e}")
+            return False
+
     def close(self):
         """Zamyka połączenie z serwerem."""
         if self.socket:
